@@ -2,7 +2,7 @@
 
 package runtime
 
-const defaultGoroot = `/home/janson/projects/cloud/go1.5.4`
+const defaultGoroot = `/home/janson/go1.5.4`
 const theVersion = `go1.5.4`
 const goexperiment = ``
 const stackGuardMultiplier = 1
