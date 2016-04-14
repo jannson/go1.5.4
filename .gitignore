@@ -43,3 +43,6 @@ VERSION.cache
 
 bin/
 pkg/
+
+cscope.*
+tags

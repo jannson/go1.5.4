@@ -2299,13 +2299,14 @@ func Asmbelf(symo int64) {
 		// Do not emit PT_TLS for OpenBSD since ld.so(1) does
 		// not currently support it. This is handled
 		// appropriately in runtime/cgo.
-		if Ctxt.Tlsoffset != 0 && HEADTYPE != obj.Hopenbsd {
+		// update by jannson for arm
+		/*if Ctxt.Tlsoffset != 0 && HEADTYPE != obj.Hopenbsd {
 			ph := newElfPhdr()
 			ph.type_ = PT_TLS
 			ph.flags = PF_R
 			ph.memsz = uint64(-Ctxt.Tlsoffset)
 			ph.align = uint64(Thearch.Regsize)
-		}
+		}*/
 	}
 
 	if HEADTYPE == obj.Hlinux {
