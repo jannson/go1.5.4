@@ -1513,7 +1513,8 @@ func elfshbits(sect *Section) *ElfShdr {
 		sh.flags |= SHF_WRITE
 	}
 	if sect.Name == ".tbss" {
-		if goos != "android" {
+		//added by jannson
+		if goos != "android" && goos != "linux" {
 			sh.flags |= SHF_TLS // no TLS on android
 		}
 		sh.type_ = SHT_NOBITS
