@@ -72,7 +72,7 @@ type Elf_Note struct {
 }
 
 const (
-	RM_TLS = 0
+	RM_TLS = 1
 )
 
 const (
