@@ -72,6 +72,10 @@ type Elf_Note struct {
 }
 
 const (
+	RM_TLS = 0
+)
+
+const (
 	EI_MAG0              = 0
 	EI_MAG1              = 1
 	EI_MAG2              = 2
@@ -1687,11 +1691,11 @@ func doelf() {
 	// binutils could correctly calculate PT_TLS size.
 	// see https://golang.org/issue/5200.
 	//add by jannson
-	/* if HEADTYPE != obj.Hopenbsd {
+	if HEADTYPE != obj.Hopenbsd && RM_TLS == 0 {
 		if Debug['d'] == 0 || Linkmode == LinkExternal {
 			Addstring(shstrtab, ".tbss")
 		}
-	} */
+	}
 	if HEADTYPE == obj.Hnetbsd {
 		Addstring(shstrtab, ".note.netbsd.ident")
 	}
@@ -2301,14 +2305,14 @@ func Asmbelf(symo int64) {
 		// Do not emit PT_TLS for OpenBSD since ld.so(1) does
 		// not currently support it. This is handled
 		// appropriately in runtime/cgo.
-		// TODO remove tbss on arm? update by jannson for arm
-		/*if Ctxt.Tlsoffset != 0 && HEADTYPE != obj.Hopenbsd {
+		//remove tbss on arm? update by jannson for arm
+		if Ctxt.Tlsoffset != 0 && HEADTYPE != obj.Hopenbsd && RM_TLS == 0 {
 			ph := newElfPhdr()
 			ph.type_ = PT_TLS
 			ph.flags = PF_R
 			ph.memsz = uint64(-Ctxt.Tlsoffset)
 			ph.align = uint64(Thearch.Regsize)
-		}*/
+		}
 	}
 
 	if HEADTYPE == obj.Hlinux {
@@ -2367,13 +2371,13 @@ elfobj:
 
 	// generate .tbss section for dynamic internal linking (except for OpenBSD)
 	// external linking generates .tbss in data.c
-	/*if Linkmode == LinkInternal && Debug['d'] == 0 && HEADTYPE != obj.Hopenbsd {
+	if Linkmode == LinkInternal && Debug['d'] == 0 && HEADTYPE != obj.Hopenbsd && RM_TLS == 0 {
 		sh := elfshname(".tbss")
 		sh.type_ = SHT_NOBITS
 		sh.addralign = uint64(Thearch.Regsize)
 		sh.size = uint64(-Ctxt.Tlsoffset)
 		sh.flags = SHF_ALLOC | SHF_TLS | SHF_WRITE
-	}*/
+	}
 
 	if Debug['s'] == 0 {
 		sh := elfshname(".symtab")
