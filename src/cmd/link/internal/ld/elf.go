@@ -10,6 +10,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"path/filepath"
+	"runtime/debug"
 	"sort"
 	"strings"
 )
@@ -1470,6 +1471,7 @@ func elfshname(name string) *ElfShdr {
 	}
 
 	Diag("cannot find elf name %s", name)
+	debug.PrintStack()
 	errorexit()
 	return nil
 }
