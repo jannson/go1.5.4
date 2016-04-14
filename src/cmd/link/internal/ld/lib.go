@@ -1813,7 +1813,7 @@ func genasmsym(put func(*LSym, string, int, int64, int64, int, *LSym)) {
 			put(s, s.Extname, 'U', 0, 0, int(s.Version), nil)
 
 		case obj.STLSBSS:
-			if Linkmode == LinkExternal && HEADTYPE != obj.Hopenbsd {
+			if Linkmode == LinkExternal && HEADTYPE != obj.Hopenbsd && RM_TLS == 0 {
 				var type_ int
 				if goos == "android" {
 					type_ = 'B'

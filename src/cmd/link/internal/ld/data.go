@@ -1390,7 +1390,7 @@ func dodata() {
 		Diag("data or bss segment too large")
 	}
 
-	if Iself && Linkmode == LinkExternal && s != nil && s.Type == obj.STLSBSS && HEADTYPE != obj.Hopenbsd {
+	if Iself && Linkmode == LinkExternal && s != nil && s.Type == obj.STLSBSS && HEADTYPE != obj.Hopenbsd && RM_TLS == 0 {
 		sect := addsection(&Segdata, ".tbss", 06)
 		sect.Align = int32(Thearch.Ptrsize)
 		sect.Vaddr = 0
