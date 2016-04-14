@@ -4,7 +4,7 @@ package obj
 
 import "runtime"
 
-const defaultGOROOT = `/home/janson/go1.5.4`
+const defaultGOROOT = `/home/janson/projects/cloud/go1.5.4`
 const defaultGO386 = `sse2`
 const defaultGOARM = `5`
 const defaultGOOS = runtime.GOOS
